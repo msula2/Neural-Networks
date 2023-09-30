@@ -32,7 +32,7 @@ def load_csv(filename):
 
 
 # Convert the input values in the specified column of the dataset from strings to floats
-def convert_inputs_to_float(dataset, column, x):
+def convert_inputs_to_float(dataset, column):
 	for row in dataset:
 		row[column] = float(row[column].strip())
 
@@ -83,7 +83,15 @@ def load_dataset(filename):
 #
 # Returns:	a matrix, or list of rows, containing only a subset of the input
 #			vectors from the entire dataset
-#def create_training_set(dataset):
+def create_training_set(dataset):
+	
+	#Using 70-30 rule, where 70% of the dataset is reserved for training, while 30% for testing
+	training_dataset = list()
+	training_dataset = dataset[0:int(len(dataset) * 0.70)]
+
+	return training_dataset
+	
+
 
 
 def main():
@@ -102,7 +110,7 @@ def main():
 		convert_desired_outputs_to_int(dataset, len(dataset[0]) - 1)
 
 	# Step 4: Create the training set
-
+		training_dataset = create_training_set(dataset)
 
 	# Step 5: Create the perceptron
 
