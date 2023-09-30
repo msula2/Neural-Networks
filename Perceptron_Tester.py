@@ -1,7 +1,8 @@
 from csv import reader					# reader object reads a csv file line by line
 from random import seed					# seeds the random number generator
 from random import randrange			# returns a random value in a specified range
-#from Perceptron import Perceptron		# this is the Perceptron class in the Perceptron.py file
+from Perceptron import Perceptron		# this is the Perceptron class in the Perceptron.py file
+import random
 
 ######################################################################
 ##### DATASET FUNCTIONS                                          #####
@@ -86,14 +87,11 @@ def load_dataset(filename):
 def create_training_set(dataset):
 	
 	#Using 70-30 rule, where 70% of the dataset is reserved for training, while 30% for testing
-	training_dataset = list()
-	training_dataset = dataset[0:int(len(dataset) * 0.70)]
+	training_set = list()
+	training_set = dataset[0:int(len(dataset) * 0.70)]
 
-	return training_dataset
+	return training_set
 	
-
-
-
 def main():
 	######################################################################
 	##### CREATE A PERCEPTRON, TRAIN IT, AND TEST IT                 #####
@@ -110,15 +108,29 @@ def main():
 		convert_desired_outputs_to_int(dataset, len(dataset[0]) - 1)
 
 	# Step 4: Create the training set
-		training_dataset = create_training_set(dataset)
+		training_set = create_training_set(dataset)
 
 	# Step 5: Create the perceptron
-
+		num_inputs = len(dataset[0])
+		synaptic_weights = [random.random() for i in range(num_inputs - 1)]
+		bias = 0.30
+		perceptron = Perceptron(bias, synaptic_weights)
 
 	# Step 6: Train the perceptron
-
+		perceptron.train(training_set = training_set, learning_rate_parameter = 0.5, number_of_epochs = 10)
 
 	# Step 7: Test the trained perceptron
+		correct_outputs = 0
+		test_set = dataset[int(len(dataset) * 0.70) : len(dataset)]
+		predicted_outputs = perceptron.test(test_set)
+		actual_outputs = [row[-1] for row in test_set]
+		for i in range(0, len(actual_outputs)):
+			error = actual_outputs[i] - predicted_outputs[i]
+			if (error == 0):
+				correct_outputs += 1
+		accuracy = (correct_outputs / len(actual_outputs)) * 100
+		print("Accuracy: " ,round(accuracy,2), "%")
+
 
 
 	# Step 8: Display the test results and accuracy of the perceptron
