@@ -19,9 +19,6 @@ class Perceptron(object):
 	#
 	# Returns:	an integer that corresponds to one of the two possible output values (usually 0 or 1)
 	def activation_function(self, z):
-		#Multiplying with signum function (if induced local field is postive, it is multiplied by +1, if negative it is muliplied by -1 and if 0 it remains 0)
-		#if z < 0:
-		#	z = abs(z)
 		
 		#Threshold function (values greater than threhsold allow neuron to fire, values less than or equal to threshold don't cause neuron to fire)
 		threshold = 10.0
@@ -41,7 +38,7 @@ class Perceptron(object):
 	def weighted_sum_inputs(self, inputs):
 		weighted_sum = 0
 		for i in range(0, len(inputs) - 1):
-			weighted_sum += inputs[i] + self.synaptic_weights[i]
+			weighted_sum += inputs[i] * self.synaptic_weights[i]
 		return weighted_sum
 		
 
@@ -76,20 +73,27 @@ class Perceptron(object):
 	#
 	# Returns:	no return value
 	def train(self, training_set, learning_rate_parameter, number_of_epochs):
+		print("------------Training------------")
 		for epoch in range(0, number_of_epochs):
+			print("For Epoch: ", epoch)
+			correct_outputs = 0
 			for i in range(0, len(training_set)):
 				prediction = self.predict(training_set[i])
 				error_signal = training_set[i][-1] - prediction
+				if(error_signal == 0):
+					correct_outputs += 1
 				#Wrong prediction, update weights
 				if (error_signal != 0):
 					for j in range(0, len(self.synaptic_weights)):
 						self.synaptic_weights[j] = self.synaptic_weights[j] + error_signal * learning_rate_parameter
-
+			accuracy = (correct_outputs / len(training_set)) * 100
+			print("Accuracy: " ,round(accuracy,2), "%")  
 	# Test this Perceptron
 	# Params:	test_set - the set of input vectors to be used to test the perceptron after it has been trained
 	#
 	# Returns:	a collection or list containing the actual output (i.e., prediction) for each input vector
 	def test(self, test_set):
+		print("------------Testing------------")
 		prediction = list()
 		for i in range(0, len(test_set)):
 				prediction.append(self.predict(test_set[i]))

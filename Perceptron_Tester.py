@@ -100,24 +100,27 @@ def main():
 	# Step 1: Acquire the dataset
 		dataset = load_csv('sonar_all-data.csv')
 
+
 	# Step 2: Convert the string input values to floats
 		for column in range(len(dataset[0])-1):
 			convert_inputs_to_float(dataset, column)
 
 	# Step 3: Convert the desired outputs to int values
 		convert_desired_outputs_to_int(dataset, len(dataset[0]) - 1)
+		#Shuffle dataset before splitting into training and testing dataset
+		random.shuffle(dataset)
 
 	# Step 4: Create the training set
 		training_set = create_training_set(dataset)
 
 	# Step 5: Create the perceptron
 		num_inputs = len(dataset[0])
-		synaptic_weights = [random.random() for i in range(num_inputs - 1)]
+		synaptic_weights = [0 for i in range(num_inputs - 1)]
 		bias = 0.30
 		perceptron = Perceptron(bias, synaptic_weights)
 
 	# Step 6: Train the perceptron
-		perceptron.train(training_set = training_set, learning_rate_parameter = 0.5, number_of_epochs = 10)
+		perceptron.train(training_set = training_set, learning_rate_parameter = 0.01, number_of_epochs = 500)
 
 	# Step 7: Test the trained perceptron
 		correct_outputs = 0
