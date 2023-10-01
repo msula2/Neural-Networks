@@ -115,12 +115,12 @@ def main():
 
 	# Step 5: Create the perceptron
 		num_inputs = len(dataset[0])
-		synaptic_weights = [0 for i in range(num_inputs - 1)]
+		synaptic_weights = [random.random() for i in range(num_inputs - 1)]
 		bias = 0.30
 		perceptron = Perceptron(bias, synaptic_weights)
 
 	# Step 6: Train the perceptron
-		perceptron.train(training_set = training_set, learning_rate_parameter = 0.01, number_of_epochs = 500)
+		perceptron.train(training_set = training_set, learning_rate_parameter = 0.03, number_of_epochs = 500)
 
 	# Step 7: Test the trained perceptron
 		correct_outputs = 0
@@ -131,12 +131,10 @@ def main():
 			error = actual_outputs[i] - predicted_outputs[i]
 			if (error == 0):
 				correct_outputs += 1
-		accuracy = (correct_outputs / len(actual_outputs)) * 100
-		print("Accuracy: " ,round(accuracy,2), "%")
-
-
 
 	# Step 8: Display the test results and accuracy of the perceptron
+		accuracy = (correct_outputs / len(actual_outputs)) * 100
+		print("Accuracy: " ,round(accuracy,2), "%")
 
 if __name__ == "__main__":
     main()

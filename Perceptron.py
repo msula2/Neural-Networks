@@ -1,3 +1,4 @@
+from math import exp
 class Perceptron(object):
 
 	# Create a new Perceptron
@@ -20,13 +21,13 @@ class Perceptron(object):
 	# Returns:	an integer that corresponds to one of the two possible output values (usually 0 or 1)
 	def activation_function(self, z):
 		
-		#Threshold function (values greater than threhsold allow neuron to fire, values less than or equal to threshold don't cause neuron to fire)
-		threshold = 10.0
-		if z > threshold:
+		#Sigmoid activation function
+		threshold = 0.5
+		sig_prob = 1.0 / (1.0 + exp(-z))
+		if (sig_prob > threshold):
 			return 1
 		else:
 			return 0
-		
 
 
 	# Compute and return the weighted sum of all inputs (not including bias)
@@ -79,13 +80,21 @@ class Perceptron(object):
 			correct_outputs = 0
 			for i in range(0, len(training_set)):
 				prediction = self.predict(training_set[i])
-				error_signal = training_set[i][-1] - prediction
+				actual_output = training_set[i][-1]
+				error_signal = actual_output - prediction
+				#Correct prediction, do not update weights
 				if(error_signal == 0):
 					correct_outputs += 1
 				#Wrong prediction, update weights
 				if (error_signal != 0):
-					for j in range(0, len(self.synaptic_weights)):
-						self.synaptic_weights[j] = self.synaptic_weights[j] + error_signal * learning_rate_parameter
+					#x(n) belonged to C1 but it was categroized as C2
+					if (actual_output == 1 and prediction == 0):
+						for j in range(0, len(self.synaptic_weights)):
+							self.synaptic_weights[j] = self.synaptic_weights[j] - (learning_rate_parameter * training_set[i][j])
+					#x(n) belonged to C2 but it was categroized as C1
+					elif (actual_output == 0 and prediction == 1):
+						for j in range(0, len(self.synaptic_weights)):
+							self.synaptic_weights[j] = self.synaptic_weights[j] + (learning_rate_parameter * training_set[i][j])
 			accuracy = (correct_outputs / len(training_set)) * 100
 			print("Accuracy: " ,round(accuracy,2), "%")  
 	# Test this Perceptron
