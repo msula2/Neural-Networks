@@ -81,20 +81,13 @@ class Perceptron(object):
 			for i in range(0, len(training_set)):
 				prediction = self.predict(training_set[i])
 				actual_output = training_set[i][-1]
-				error_signal = actual_output - prediction
+				error = actual_output - prediction
+				#If error is zero, no updates occur
+				for j in range(len(self.synaptic_weights)):
+					self.synaptic_weights[j] = self.synaptic_weights[j] + (learning_rate_parameter * error * training_set[i][j])
 				#Correct prediction, do not update weights
-				if(error_signal == 0):
+				if(error == 0):
 					correct_outputs += 1
-				#Wrong prediction, update weights
-				if (error_signal != 0):
-					#x(n) belonged to C1 but it was categroized as C2
-					if (actual_output == 1 and prediction == 0):
-						for j in range(0, len(self.synaptic_weights)):
-							self.synaptic_weights[j] = self.synaptic_weights[j] - (learning_rate_parameter * training_set[i][j])
-					#x(n) belonged to C2 but it was categroized as C1
-					elif (actual_output == 0 and prediction == 1):
-						for j in range(0, len(self.synaptic_weights)):
-							self.synaptic_weights[j] = self.synaptic_weights[j] + (learning_rate_parameter * training_set[i][j])
 			accuracy = (correct_outputs / len(training_set)) * 100
 			print("Accuracy: " ,round(accuracy,2), "%")  
 	# Test this Perceptron
