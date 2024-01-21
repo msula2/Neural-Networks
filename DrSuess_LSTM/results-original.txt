@@ -1,0 +1,54 @@
+Total Characters:  7353
+Total Vocab:  32
+Total Patterns:  7253
+Seed:
+" en we saw him step in on the mat!
+we looked!
+and we saw him!
+the cat in the hat!
+and he said to us,
+ "
+'why do you sit there like that?'
+'i know it is wet
+and the sun is not sunny.
+but we can have
+lots of good fun that is funny!'
+
+'i know some good games we could play,'
+said the cat.
+'i know some new tricks,'
+said the cat in the hat.
+''no! not in the house!'
+said the fish in the pot.
+''but i like to be here.
+oh, i like it a lot!'
+said the cat in the hat.
+'whese things are good things.'
+and he gave them a pat.
+'they are tame. oh, so tame!
+they have come here to play.
+they will give you some fun
+on this wet, wet, wet day.'
+
+now, here is a game that they like,'
+said the cat.
+'they like to fly kites,'
+said the cat in the hat.
+''no! not in the house!'
+said the fish in the pot.
+''but i like to be here.
+oh, i like it a lot!'
+said the cat in the hat.
+'whese things are good things.'
+and he gave them a pat.
+'they are tame. oh, so tame!
+they have come here to play.
+they will give you some fun
+on this wet, wet, wet day.'
+
+now, here is a game that they like,'
+said the cat.
+'they like to fly kites,'
+
+
+Done.
